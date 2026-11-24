@@ -32,6 +32,8 @@ def check(word):
         raise ValueError("entry is only whitespace")
     if not ONE_WORD.match(word):
         raise ValueError("entry is not a single word")
+    if word != word.strip():
+        raise ValueError("entry has leading or trailing whitespace")
     if "\n" in word or "\r" in word:
         raise ValueError("entry spans more than one line")
 
