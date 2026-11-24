@@ -8,6 +8,10 @@ you, and nothing else. This program holds the approved word, checks
 it against the gate (UTF-8 text, 1 to 24 characters, one word, not
 only whitespace), writes it to entry.txt, reads the file back and
 proves the bytes on disk are the word it approved.
+
+Revision (second message): added --show, which prints the approved
+word with its length and the gate, without writing anything, so the
+entry can be inspected before a run.
 """
 
 import re
@@ -41,6 +45,9 @@ def publish(word, path="entry.txt"):
 
 
 def main(argv):
+    if len(argv) > 1 and argv[1] == "--show":
+        print("%s (%d characters, gate %d-%d)" % (WORD, len(WORD), MIN_LEN, MAX_LEN))
+        return 0
     check(WORD)
     publish(WORD)
     print("wrote entry.txt: %r, %d characters, %d bytes"
